@@ -53,7 +53,7 @@ void execute(char* line)
                 break;
 
             case ',':
-                fgets(memory[ptr], 1, stdin);
+                fgets((int*)memory[ptr], 1, stdin);
                 break;
 
         }
@@ -64,7 +64,6 @@ int main()
 {
     char *line;
     line = read_line();
-    printf("%s", line);
     execute(line);
     free(line);
     return(0);
