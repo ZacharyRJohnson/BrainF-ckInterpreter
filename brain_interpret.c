@@ -55,7 +55,71 @@ void execute(char* line)
             case ',':
                 fgets((int*)memory[ptr], 1, stdin);
                 break;
+            
+            case '[':
+                if(memory[ptr] == 0)
+                {
+                    int l = 0;  // Number of nested if statements
+                    int no_close = 1;
+                    while(no_close)
+                    {
+                        i++;
+                        // Error if no ending bracket is found
+                        if(i == MAX_LINE)
+                        {
+                            printf("Error, no end bracket found for if statement");
+                            exit(1);
+                        }
 
+                        switch(line[i])
+                        {
+                            case '[':
+                                l++;
+                                break;
+
+                            case ']':
+                                if(l == 0)
+                                    no_close = 0;
+                                else
+                                    l--;
+                                break;
+                        }
+                    }
+                }
+                break;
+
+            case ']':
+                if(memory[ptr] != 0)
+                {
+                    int l = 0;  // Number of nested if statements
+                    int no_close = 1;
+                    while(no_close)
+                    {
+                        i--;
+                        // Error if no ending bracket is found
+                        if(i == -1)
+                        {
+                            printf("Error, no start bracket found for if statement");
+                            exit(1);
+                        }
+
+                        switch(line[i])
+                        {
+                            case ']':
+                                l++;
+                                break;
+
+                            case '[':
+                                if(l == 0)
+                                    no_close = 0;
+                                else
+                                    l--;
+                                break;
+                        }
+                    }
+                }
+                break;
+ 
         }
     }
 }
